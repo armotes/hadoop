@@ -1,0 +1,5 @@
+里面报了个空指针异常
+一般在刚刚集成环境的时候才有,
+使用下列命令创建2个hadoop的目录即可
+hdfs dfs -mkdir -p /hadoop/io/input
+hdfs dfs -mkdir -p /hadoop/io/output

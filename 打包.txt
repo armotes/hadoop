@@ -1,0 +1,19 @@
+打包
+jar -cvf WordCount.jar classes/*
+
+作业提交:提交WordConut.jar到hadoop里面运行，并指定输入和输出文件
+WordConut.jar是本地jar的路径 WordCount是运行main参数 input 是hdfs的输入目录 output是输出参数(必须不能存在)
+hadoop jar WordConut.jar WordCount input output
+yarn jar wordcount.jar WordCount /hadoop/io/input/s3.txt /hadoop/io/output4
+
+下列命令是编译WordCount.java 
+将classpath路径中的3个jar包引入 
+然后将编译后的文件放入/zhou/java/wordcount/
+javac -classpath 
+/zhou/hadoop/hadoop-2.6.1/share/hadoop/mapreduce/hadoop-mapreduce-client-core-2.6.1.jar
+:/zhou/hadoop/hadoop-2.6.1/share/hadoop/common/hadoop-common-2.6.1.jar
+:/zhou/hadoop/hadoop-2.6.1/share/hadoop/common/lib/commons-cli-1.2.jar 
+-d /zhou/java/wordcount/ WordCount.java
+
+将当前目录下所有class文件一起打包进wordcount.jar
+ jar -cvf wordcount.jar *.class

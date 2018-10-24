@@ -1,0 +1,101 @@
+启动/关闭hadoop所有服务
+start-dfs.sh
+start-yarn.sh
+mr-jobhistory-daemon.sh start historyserver
+
+主机单独启动datanode
+hadoop-daemon.sh start datanode
+hadoop-daemon.sh stop datanode
+***************************************************
+ssh免密码登陆
+一、生成公钥和私钥
+执行 ssh-keygen -t rsa
+连续按3次Enter
+
+二、将自己的公钥拷贝到对方认证文件即可
+ssh-copy-id -i /root/.ssh/id_rsa.pub master
+
+思想：从节点 1 开始收集私钥然后发送到节点 2 依次类推，到节点 4 最全，把节点 4 的
+authorized_keys 拷贝到所有节点，实现互通
+
+导入本地的公钥到自己的认证文件
+cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+
+再将自己的认证文件复制到客户端1去
+scp /root/.ssh/authorized_keys master:/root/.ssh
+
+
+
+scp -r 可以复制整个文件夹
+
+
+操作命令:
+hadoop fs
+
+
+start-all.sh
+
+关闭HADOOP
+
+stop-all.sh
+
+查看文件列表
+
+查看hdfs中目录下的文件。
+
+hadoop fs -ls /user/admin/aaron
+
+列出hdfs中目录下的所有文件（包括子目录下的文件）。
+
+hadoop fs -ls -R /user/admin/aaron
+
+给当前目录以及子目录赋予权限
+hadoop dfs -chmod -R 777 /data/tmp
+ 
+ 
+创建文件目录
+
+hadoop fs -mkdir /user/admin/aaron/newDir
+
+删除文件
+
+删除hdfs中/user/admin/aaron目录下一个名叫needDelete的文件
+
+hadoop fs -rm /user/admin/aaron/needDelete
+
+删除hdfs中/user/admin/aaron目录以及该目录下的所有文件
+
+hadoop fs -rmr /user/admin/aaron
+
+上传文件
+
+hadoop fs –put /home/admin/newFile /user/admin/aaron/
+
+下载文件
+
+hadoop fs –get /user/admin/aaron/newFile /home/admin/newFile
+
+查看文件
+
+hadoop fs –cat /home/admin/newFile
+
+新建一个空文件
+
+hadoop  fs  -touchz /user/new.txt
+
+将hadoop上某个文件重命名
+
+hadoop  fs  –mv /user/test.txt  /user/ok.txt
+
+将hadoop指定目录下所有内容保存为一个文件，同时down至本地
+
+hadoop dfs –getmerge  /user /home/t
+
+提交MAPREDUCE JOB
+
+h bin/hadoop jar /home/admin/hadoop/job.jar [jobMainClass] [jobArgs]
+
+杀死某个正在运行的JOB
+
+hadoop job -kill job_201005310937_0053
+
